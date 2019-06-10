@@ -5,7 +5,7 @@ function calc (firstNum, secondNum, operation, result) {
 	let b = Number(secondNum)
 	let r = Number(result)
 
-	let arr = [a,b,r]
+	let arr = [a,b]
 
 	for (let i = 0; i < arr.length; i++) {
 		if(arr[i] >= 1 && arr[i] <= 1000000){
