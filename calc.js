@@ -1,9 +1,9 @@
 function calc (firstNum, secondNum, operation, result) {
 	let operationResult;
 
-	let a = Number(firstNum)
-	let b = Number(secondNum)
-	let r = Number(result)
+	let a = parseFloat(firstNum)
+	let b = parseFloat(secondNum)
+	let r = parseFloat(result)
 
 	let arr = [a,b]
 
