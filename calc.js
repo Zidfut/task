@@ -11,7 +11,6 @@ function calc (firstNum, secondNum, operation, result) {
 
 	for (let i = 0; i < arr.length; i++) {
 		if(arr[i] >= 1 && arr[i] <= 1000000){
-			console.log(arr[i])
 		} else {
 			console.log(arr[i] + ' - число должно быть в диапазоне от 1 до 1000000!')
 			return 
