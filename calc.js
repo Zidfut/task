@@ -18,10 +18,12 @@ function calc (firstNum, secondNum, operation, result) {
 		}
 	}
 
-	console.log(r)
+	console.log(r + " ожидаемый резултат")
 
 	function compare (x,z) {
-		if (x === z) {
+		
+		console.log(+z.toFixed(2) + " округленный результат операции")
+		if (x === +z.toFixed(2)) {
 			console.log("Результат операции совпадает с ожидаемым результатом!")
 		} else {
 			console.log("Результат операции  НЕ совпадает с ожидаемым результатом!")
@@ -31,19 +33,22 @@ function calc (firstNum, secondNum, operation, result) {
 	switch (operation) {
 		case "+":
 			operationResult = a + b;
-			console.log(operationResult)
+			console.log(operationResult + " результат операции")
 			compare(r, operationResult)
 			break;
 		case "-":
 			operationResult = a - b;
+			console.log(operationResult + " результат операции")
 			compare(r, operationResult)
 			break;
 		case "*":
 			operationResult = a * b;
+			console.log(operationResult + " результат операции")
 			compare(r, operationResult)
 			break;
 		case "/":
 			operationResult = a / b;
+			console.log(operationResult + " результат операции")
 			compare(r, operationResult)
 			break;
 		default:
