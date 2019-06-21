@@ -28,7 +28,7 @@ function groupWeeks(data) {
 				num = num + 1
 				acc.count = acc.count + val.count
 				if(dataLength == i + 1){
-					acc.count = +(acc.count / num).toFixed(2)
+					acc.count = (acc.count / num).toFixed(2)
 				}
 			} else if (dayOfWeek == 0) {
 				let startWeek = new Date(dataDate.setDate(dateOfMonth - 6)).toLocaleDateString().split(".").reverse().join("-")
