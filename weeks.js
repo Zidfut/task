@@ -1,11 +1,8 @@
 function groupWeeks(data) {
 
-	let weeksArr = [];
+	let weeksArr = []
+	let dataLength = data.length
 	let num
-
-	data.sort(function(a, b){
-		return new Date(a.date) - new Date(b.date)
-	})
 
 	data.reduce(function(acc, val, i){
 
@@ -14,34 +11,39 @@ function groupWeeks(data) {
 		let dateOfMonth = dataDate.getDate()
 
 		if (dayOfWeek == 1) {
-
-			if(num > 1) {
-				acc.count = +(acc.count / num).toFixed(2)
-			}
-
-			num = 1
-
+			num > 1 ? acc.count = (acc.count / num).toFixed(2) : num = 1
 			acc = {
 				weekStart: val.date,
-				count: val.count,
-				
+				count: val.count	
 			}
-
 			weeksArr.push(acc)
-
+			if(dataLength == i + 1){
+				acc.count = acc.count.toFixed(2)
+			}
 		} else {
-
 			let accDate = new Date(acc.weekStart).getDate()
+
 			if ((accDate + 6) >= dateOfMonth) {
+
 				num = num + 1
 				acc.count = acc.count + val.count
-			} else {
-				let startWeek = new Date(dataDate.setDate(dateOfMonth - (dayOfWeek - 1))).toLocaleDateString().split(".").reverse().join("-")
-				num = 1
+				if(dataLength == i + 1){
+					acc.count = +(acc.count / num).toFixed(2)
+				}
+			} else if (dayOfWeek == 0) {
+				let startWeek = new Date(dataDate.setDate(dateOfMonth - 6)).toLocaleDateString().split(".").reverse().join("-")
+				num > 1 ? acc.count = (acc.count / num).toFixed(2) : num = 1
 				acc = {
 					weekStart: startWeek,
-					count: val.count,
-					
+					count: val.count
+				}
+				weeksArr.push(acc)
+			} else {
+				let startWeek = new Date(dataDate.setDate(dateOfMonth - (dayOfWeek - 1))).toLocaleDateString().split(".").reverse().join("-")
+				num > 1 ? acc.count = (acc.count / num).toFixed(2) : num = 1
+				acc = {
+					weekStart: startWeek,
+					count: val.count		
 				}
 				weeksArr.push(acc)
 			}
