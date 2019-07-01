@@ -1,10 +1,33 @@
+"use strict"
+
 function equalSimple (x, y) {
 
-  for (p in x) {
+  if (!(x instanceof Object && y instanceof Object)) {
+    return false;
+  }
+
+  if (x.isPrototypeOf(y) || y.isPrototypeOf(x)) {
+    return false;
+  }
+
+  if (x.constructor !== y.constructor) {
+    return false;
+  }
+
+  if (x.prototype !== y.prototype) {
+     return false;
+  }
+
+  for (let p in x) {
+
+    if (Object.keys(x).length !== Object.keys(y).length) {
+      return false
+    }
 
     if (x.hasOwnProperty(p) !== y.hasOwnProperty(p)) {
       return false
-    } 
+    }
+
     switch (typeof (x[p])) {
       case 'object':
         if (!equalSimple(x[p], y[p])){
