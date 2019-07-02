@@ -20,6 +20,10 @@ function equalSimple (x, y) {
 
   for (let p in x) {
 
+    if(typeof x[p] !== typeof y[p]){
+      return false
+    }
+
     if (Object.keys(x).length !== Object.keys(y).length) {
       return false
     }
