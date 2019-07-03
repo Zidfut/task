@@ -2,6 +2,10 @@
 
 function equalSimple (x, y) {
 
+  if(x.length !== y.length){
+    return false
+  }
+
   if (!(x instanceof Object && y instanceof Object)) {
     return false;
   }
