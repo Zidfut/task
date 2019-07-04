@@ -2,8 +2,11 @@
 
 function equalSimple (x, y) {
 
-  if (Object.keys(x).length !== Object.keys(y).length) {
-    return false
+
+  if(Array.isArray(x) && Array.isArray(y)){
+    if(x.length !== y.length) {
+      return false
+    }   
   }
 
   if (!(x instanceof Object && y instanceof Object)) {
@@ -25,6 +28,10 @@ function equalSimple (x, y) {
   for (let p in x) {
 
     if(typeof x[p] !== typeof y[p]){
+      return false
+    }
+
+    if (Object.keys(x).length !== Object.keys(y).length) {
       return false
     }
 
