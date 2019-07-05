@@ -2,16 +2,10 @@
 
 function clone (obj) {
 
-	let newObj
-
-	if (Array.isArray(obj)) {
-		newObj = []
-	} else {
-		newObj = {}
-	}
+	let newObj = Array.isArray(obj) ? [] : {};
   
   	for (var i in obj) {
-  		if(typeof(obj[i]) == "object"){		
+  		if(typeof(obj[i]) == "object" && obj[i] != null ){		
   			newObj[i] = clone(obj[i]);
   		} else {
    			newObj[i] = obj[i];			
