@@ -2,19 +2,22 @@
 
 function clone (obj) {
 
-	let result = {}
+	let newObj
+
+	if (Array.isArray(obj)) {
+		newObj = []
+	} else {
+		newObj = {}
+	}
   
-  	for (let key in obj) {
-
-  		if(typeof obj[key] == "object"){
-  			console.log('recursion', key, obj[key])
-  			clone(obj[key])
-  		}
-  		
-   		result[key] = obj[key];
+  	for (var i in obj) {
+  		if(typeof(obj[i]) == "object"){		
+  			newObj[i] = clone(obj[i]);
+  		} else {
+   			newObj[i] = obj[i];			
+  		}		
   	}
-
-  	return result
+  	return newObj
 }
 
 clone(
