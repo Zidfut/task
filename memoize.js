@@ -1,8 +1,11 @@
 function memoize(x) {
-  let z;
+  let cache = {};
   return function(y) {
-    console.log(x());
-    return y;
+    if (y in cache) {
+    } else {
+      cache[y] = x();
+    }
+    return cache[y];
   };
 }
 
