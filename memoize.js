@@ -1,10 +1,14 @@
 function memoize(x) {
   let cache = {};
   return function(y) {
+    if (typeof y === "object") {
+      y = JSON.stringify(y);
+    }
     if (y in cache) {
     } else {
       cache[y] = x();
     }
+    console.log(cache);
     return cache[y];
   };
 }
