@@ -22,7 +22,6 @@ function memoize(x) {
     } else {
       cache[y] = x();
     }
-    console.log(cache);
     return cache[y];
   };
 }
