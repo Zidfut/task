@@ -1,13 +1,28 @@
 function memoize(x) {
   let cache = {};
+
+  String.prototype.hashCode = function() {
+    var hash = 0;
+    if (this.length == 0) {
+      return hash;
+    }
+    for (var i = 0; i < this.length; i++) {
+      char = this.charCodeAt(i);
+      hash = (hash << 5) - hash + char;
+      hash = hash & hash;
+    }
+    return hash;
+  };
+
   return function(y) {
-    if (typeof y === "object") {
-      y = JSON.stringify(y);
+    if (typeof y === "object" && y != null) {
+      y = JSON.stringify(y).hashCode();
     }
     if (y in cache) {
     } else {
       cache[y] = x();
     }
+    console.log(cache);
     return cache[y];
   };
 }
