@@ -1,13 +1,16 @@
+"use strict";
+
 function memoize(x) {
   let cache = {};
 
   String.prototype.hashCode = function() {
     var hash = 0;
-    if (this.length == 0) {
+    if (this.length === 0) {
       return hash;
     }
     for (var i = 0; i < this.length; i++) {
-      char = this.charCodeAt(i);
+      let char = this.charCodeAt(i);
+      console.log(char);
       hash = (hash << 5) - hash + char;
       hash = hash & hash;
     }
@@ -15,7 +18,7 @@ function memoize(x) {
   };
 
   return function(y) {
-    if (typeof y === "object" && y != null) {
+    if ((typeof y === "object" && y != null) || Array.isArray(y)) {
       y = JSON.stringify(y).hashCode();
     }
     if (y in cache) {
