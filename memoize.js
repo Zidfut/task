@@ -16,7 +16,7 @@ function memoize(x) {
     return hash;
   };
 
-  return function(y) {
+  return function(...y) {
     if (Array.isArray(y) || (typeof y === "object" && y != null)) {
       y = JSON.stringify(y).hashCode();
     }
