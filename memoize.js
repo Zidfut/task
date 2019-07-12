@@ -83,6 +83,11 @@ function memoize(x) {
       if (z in cache) {
         if (equalSimple(cache[z].obj, y)) {
           return cache[z].count;
+        } else {
+          cache[z] = {
+            obj: y,
+            count: x()
+          };
         }
       } else {
         cache[z] = {
