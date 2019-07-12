@@ -16,15 +16,89 @@ function memoize(x) {
     return hash;
   };
 
+  function equalSimple(x, y) {
+    if (Array.isArray(x) && Array.isArray(y)) {
+      if (x.length !== y.length) {
+        return false;
+      }
+    }
+
+    if (!(x instanceof Object && y instanceof Object)) {
+      return false;
+    }
+
+    if (x.isPrototypeOf(y) || y.isPrototypeOf(x)) {
+      return false;
+    }
+
+    if (x.constructor !== y.constructor) {
+      return false;
+    }
+
+    if (x.prototype !== y.prototype) {
+      return false;
+    }
+
+    for (let p in x) {
+      if (typeof x[p] !== typeof y[p]) {
+        return false;
+      }
+
+      if (Object.keys(x).length !== Object.keys(y).length) {
+        return false;
+      }
+
+      if (x.hasOwnProperty(p) !== y.hasOwnProperty(p)) {
+        return false;
+      }
+
+      switch (typeof x[p]) {
+        case "object":
+          if (!equalSimple(x[p], y[p])) {
+            return false;
+          }
+          break;
+        case "function":
+          if (
+            typeof y[p] == "undefined" ||
+            x[p].toString() != y[p].toString()
+          ) {
+            return false;
+          }
+          break;
+        default:
+          if (x[p] != y[p]) {
+            return false;
+          }
+      }
+    }
+
+    return true;
+  }
+
   return function(y) {
-    if ((typeof y === "object" && y != null) || Array.isArray(y)) {
-      y = JSON.stringify(y).hashCode();
-    }
-    if (y in cache) {
+    let z;
+    if (Array.isArray(y) || (typeof y === "object" && y != null)) {
+      z = JSON.stringify(y).hashCode();
+      if (z in cache) {
+        if (equalSimple(cache[z].obj, y)) {
+          return cache[z].count;
+        }
+      } else {
+        cache[z] = {
+          obj: y,
+          count: x()
+        };
+        return cache[z].count;
+      }
     } else {
-      cache[y] = x();
+      if (y in cache) {
+        return cache[y];
+      } else {
+        cache[y] = x();
+        return cache[y];
+      }
     }
-    return cache[y];
   };
 }
 
